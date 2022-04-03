@@ -34,15 +34,6 @@ for (const folder of commandsFolder) {
     }
 }
 
-client.on("ready", () => {
-    client.guilds.cache.forEach(guild => {
-        client.commands.forEach(command => {
-            guild.commands.create(command.data)
-            console.log(command)
-        })
-    })
-})
-
 client.on("interactionCreate", interaction => {
     if (!interaction.isCommand()) return
 
@@ -73,12 +64,18 @@ for (let folder of eventsFolders) {
     }
 }
 client.on('guildCreate', guild => {
+    client.guilds.cache.forEach(guild => {
+        client.commands.forEach(command => {
+            guild.commands.create(command.data)
+            console.log(command)
+        })
+    })
     let server = new MessageEmbed()
     .setTitle("New Server")
     .setThumbnail("https://i.imgur.com/7qRyhpo.png")
     .addField("Name:",  `${guild.name}` )
     .addField("ID", `${guild.id}`)
-    .addField("Member" ,  `${guild.members.cache.size} `)
+    .addField("Member" ,  `${guild.memberCount} `)
     .setColor("GREEN")
         client.channels.cache.get("957341750744186882").send({embeds: [server]})
 
@@ -89,7 +86,7 @@ client.on('guildDelete', guild => {
     .setTitle("Bye Bye")
     .addField("Name:" ,  `${guild.name}` )
     .addField("ID", `${guild.id}`)
-    .addField("Member" , `${guild.members.cache.size}`)
+    .addField("Member" , `${guild.memberCount}`)
     .setThumbnail("https://i.imgur.com/7qRyhpo.png")
     .setColor("RED")
         client.channels.cache.get("957341750744186882").send({embeds: [server]})
