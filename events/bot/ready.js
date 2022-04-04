@@ -1,4 +1,4 @@
-const { webhookid, webhooktoken } = require('./../../config.json')
+const { webhookid, webhooktoken } = require('../../config.json')
 const { MessageEmbed, WebhookClient } = require('discord.js')
 module.exports = {
     name: "ready",

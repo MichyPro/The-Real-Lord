@@ -22,6 +22,14 @@ client.on('message', async message => {
 client.login(`${token}`)
 
 
+client.on("ready", () => {
+    client.guilds.cache.forEach(guild => {
+        client.commands.forEach(command => {
+            guild.commands.create(command.data)
+            console.log(command)
+        })
+    })
+})
 const fs = require("fs")
 client.commands = new Collection()
 
